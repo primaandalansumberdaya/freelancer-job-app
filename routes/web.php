@@ -30,6 +30,32 @@ Route::get('explorer', LandingController::class, 'explorer')->name('explore.land
 Route::resource('/', LandingController::class);
 
 
+Route::Group(['prefix' => 'member', 'as' => 'member.', 'middleware' => ['auth:sanctum', 'verified']],
+function() {
+
+    // dashboard
+    Route::resource('dashboard', MemberController::class);
+
+    // service
+    Route::resource('service', ServiceController::class);
+
+    // Request
+    Route::get('approve_request/{id}', RequestController::class, 'approve')->name('approve.request');
+    Route::resource('request', RequestController::class);
+
+    // My Order
+    Route::get('accept/order/{id}', MyOrderController::class, 'accepted')->name('accept.order');
+    Route::get('reject/order/{id}', MyOrderController::class, 'rejected')->name('reject.order');
+    Route::resource('order', MyOrderController::class);
+
+    // Profile
+    Route::get('delete_photo/{id}', ProfileController::class, 'delete')->name('delete.photo.profile');
+    Route::resource('profile', ProfileController::class);
+
+});
+
+
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });

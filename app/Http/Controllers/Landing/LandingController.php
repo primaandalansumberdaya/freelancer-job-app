@@ -26,7 +26,7 @@ class LandingController extends Controller
     {
         $service = Service::OrderBy('created_at', 'desc')->get();
 
-        return view('pages.landing.index', compact('services'));
+        return view('pages.landing.index', compact('service'));
     }
 
     /**

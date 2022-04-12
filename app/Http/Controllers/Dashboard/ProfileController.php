@@ -107,6 +107,9 @@ class ProfileController extends Controller
             );
         }
 
+        // dd($data_profile);
+        // dd($data_detail_user);
+
         // proses save to user
         $user = User::find(Auth::user()->id);
         $user->update($data_profile);
@@ -125,12 +128,12 @@ class ProfileController extends Controller
                 $experience_user->save();
 
             }
+
         } else {
 
-            foreach($data_profile['experience'] as $key => $value){
+            foreach($data_profile['experience'] as $key => $value) {
                 if(isset($value)){
-
-                    $experience_user = ExperienceUser::find($key);
+                    $experience_user = new ExperienceUser;
                     $experience_user->detail_user_id = $detail_user['id'];
                     $experience_user->experience = $value;
                     $experience_user->save();

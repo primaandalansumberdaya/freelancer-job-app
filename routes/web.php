@@ -49,7 +49,7 @@ function() {
     Route::resource('order', MyOrderController::class);
 
     // Profile
-    Route::get('delete_photo/{id}', [ProfileController::class, 'delete'])->name('delete.photo.profile');
+    Route::get('delete_photo', [ProfileController::class, 'delete'])->name('delete.photo.profile');
     Route::resource('profile', ProfileController::class);
 
 });

@@ -17,11 +17,11 @@ class CreateServiceTable extends Migration
             $table->id();
             $table->foreignId('users_id')->nullable()->index('fk_service_to_users');
             $table->string('title');
-            $table->longText('description')->nullable;
-            $table->integer('delivery_time')->nullable;
-            $table->integer('revision_limit')->nullable;
-            $table->string('price')->nullable;
-            $table->longText('note')->nullable;
+            $table->longText('description')->nullable();
+            $table->integer('delivery_time')->nullable();
+            $table->integer('revision_limit')->nullable();
+            $table->string('price')->nullable();
+            $table->longText('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

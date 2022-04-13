@@ -32,7 +32,7 @@ class Service extends Model
     ];
 
     // one to many relation
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }

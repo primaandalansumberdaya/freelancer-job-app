@@ -37,9 +37,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::where('users_id', Auth::User()->id)->orderBy('created_id', 'desc')->get();
+        $services = Service::where('users_id', Auth::User()->id)->orderBy('created_at', 'desc')->get();
 
-        return view('pages.dashboard.service.index');
+        return view('pages.dashboard.service.index', compact('services'));
     }
 
     /**
@@ -61,8 +61,10 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         $data = $request->all();
-        $data['users_id'] = Auth::user()->id;
 
+        // dd($data);
+
+        $data['users_id'] = Auth::user()->id;
 
         // add to service
         $service = Service::create($data);
@@ -71,16 +73,16 @@ class ServiceController extends Controller
         foreach ($data['advantage-service'] as $key => $value){
             $advantage_service = new AdvantageService;
             $advantage_service->service_id = $service->id;
-            $advantage_service->advantage_id = $value;
+            $advantage_service->advantage = $value;
             $advantage_service->save();
         }
 
         // add to advantage user
-        foreach ($data['advantage-service'] as $key => $value){
-            $advantage_service = new AdvantageService;
-            $advantage_service->service_id = $service->id;
-            $advantage_service->advantage_id = $value;
-            $advantage_service->save();
+        foreach ($data['advantage-user'] as $key => $value){
+            $advantage_user = new AdvantageUser;
+            $advantage_user->service_id = $service->id;
+            $advantage_user->advantage = $value;
+            $advantage_user->save();
         }
 
         // add thumbnail service

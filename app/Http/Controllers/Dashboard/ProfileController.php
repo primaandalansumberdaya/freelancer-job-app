@@ -33,6 +33,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
+
         $user = User::where('id', Auth::user()->id)->first();
         $experience_user = ExperienceUser::where('detail_user_id', $user->detail_user->id)
                                                                     ->Orderby('id', 'asc')

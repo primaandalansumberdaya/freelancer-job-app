@@ -35,21 +35,21 @@ class Order extends Model
     // one to many relation
     public function user_buyer()
     {
-        return $this->belongsTo(User::class, 'buyer_id', 'id');
+        return $this->belongsTo('App\Models\User', 'buyer_id', 'id');
     }
 
     public function user_freelancer()
     {
-        return $this->belongsTo(User::class, 'freelancer_id', 'id');
+        return $this->belongsTo('App\Models\User', 'freelancer_id', 'id');
     }
 
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id', 'id');
+        return $this->belongsTo('App\Models\Service', 'service_id', 'id');
     }
 
     public function order_status()
     {
-        return $this->belongsTo(OrderStatus::class, 'order_status_id', 'id');
+        return $this->belongsTo('App\Models\OrderStatus', 'order_status_id', 'id');
     }
 }

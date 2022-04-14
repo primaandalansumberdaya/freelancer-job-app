@@ -39,13 +39,23 @@
                     <main class="col-span-12 p-4 md:pt-0">
                         <div class="px-2 py-2 mt-2 bg-white rounded-xl">
 
-                            <form action="#" method="POST">
+                            <form action="{{ route('member.service.update', [$service->id]) }}" method="POST">
+
+                                @method('PUT')
+                                @csrf
+
                                 <div class="">
                                     <div class="px-4 py-5 sm:p-6">
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-6">
-                                                <label for="service-name" class="block mb-3 font-medium text-gray-700 text-md">Judul Service</label>
-                                                <input placeholder="Service apa yang ingin kamu tawarkan?" type="text" name="service-name" id="service-name" autocomplete="service-name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                                                <label for="title" class="block mb-3 font-medium text-gray-700 text-md">Judul Service</label>
+                                                <input placeholder="Service apa yang ingin kamu tawarkan?" type="text" name="title" id="title"
+                                                autocomplete="title" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm
+                                                focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ $service->title ?? '' }}" required>
+
+                                                @if ($errors->has('title'))
+                                                    <p class="mb-3 text-sm text-red-500">{{ $errors->first('title') }}</p>
+                                                @endif
                                             </div>
 
                                             <div class="col-span-6">

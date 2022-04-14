@@ -8,13 +8,16 @@ use App\Http\Requests\Dashboard\Service\StoreServiceRequest;
 use App\Http\Requests\Dashboard\Service\UpdateServiceRequest;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
+// bisa juga menggunakan langsung use Auth;
+// use Auth;
 use File;
-use Auth;
 
 use App\Models\Service;
 use App\Models\AdvantageService;
@@ -37,7 +40,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::where('users_id', Auth::User()->id)->orderBy('created_at', 'desc')->get();
+        $services = Service::where('users_id', Auth::User()->id)->Orderby('created_at', 'desc')->get();
 
         return view('pages.dashboard.service.index', compact('services'));
     }
@@ -61,10 +64,7 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         $data = $request->all();
-
-        // dd($data);
-
-        $data['users_id'] = Auth::user()->id;
+        $data['users_id'] =  Auth::user()->id;
 
         // add to service
         $service = Service::create($data);

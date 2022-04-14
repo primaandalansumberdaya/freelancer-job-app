@@ -9,6 +9,7 @@ use App\Http\Requests\Dashboard\Service\UpdateServiceRequest;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 // bisa juga menggunakan langsung use Auth;
 // use Auth;
-use File;
+// use File;
 
 use App\Models\Service;
 use App\Models\AdvantageService;
@@ -153,20 +154,22 @@ class ServiceController extends Controller
     {
         $data = $request->all();
 
+        // dd($data);
+
         //update service
         $service->update($data);
 
         // update advantage service
-        foreach($data['advantage-service'] as $key => $value){
+        foreach($data['advantage-services'] as $key => $value){
             $advantage_service = AdvantageService::find($key);
             $advantage_service->advantage = $value;
             $advantage_service->save();
         }
 
         // add new advantage service
-        if(isset($data['advantage_service'])){
+        if(isset($data['advantage-service'])){
             foreach($data['advantage-service'] as $key => $value){
-                $advantage_service = AdvantageService::find($key);
+                $advantage_service = New AdvantageService;
                 $advantage_service->service_id = $service['id'];
                 $advantage_service->advantage = $value;
                 $advantage_service->save();
@@ -174,16 +177,16 @@ class ServiceController extends Controller
         }
 
          // update advantage user
-        foreach($data['advantage-user'] as $key => $value){
+        foreach($data['advantage-users'] as $key => $value){
             $advantage_user = AdvantageUser::find($key);
             $advantage_user->advantage = $value;
             $advantage_user->save();
         }
 
         // add new advantage user
-        if(isset($data['advantage_user'])){
+        if(isset($data['advantage-user'])){
             foreach($data['advantage-user'] as $key => $value){
-                $advantage_user = AdvantageUser::find($key);
+                $advantage_user = New AdvantageUser;
                 $advantage_user->service_id = $service['id'];
                 $advantage_user->advantage = $value;
                 $advantage_user->save();
@@ -191,7 +194,7 @@ class ServiceController extends Controller
         }
 
         // update tagline
-        foreach($data['tagline'] as $key => $value){
+        foreach($data['taglines'] as $key => $value){
             $tagline = Tagline::find($key);
             $tagline->tagline = $value;
             $tagline->save();
@@ -200,7 +203,7 @@ class ServiceController extends Controller
         // add new tagline
         if(isset($data['tagline'])){
             foreach($data['tagline'] as $key => $value){
-                $tagline = Tagline::find($key);
+                $tagline = New Tagline;
                 $tagline->service_id = $service['id'];
                 $tagline->tagline = $value;
                 $tagline->save();
@@ -209,11 +212,10 @@ class ServiceController extends Controller
 
         // update to thumbnail service
         if($request->hasfile('thumbnails')){
-            foreach($request->file('thumbnails') as $key => $value)
+            foreach($request->file('thumbnails') as $key => $file)
             {
                 // get old thumbnails
                 $get_photo = ThumbnailService::where('id', $key)->first();
-
 
                 // store photo
                 $path = $file->store(
@@ -247,6 +249,7 @@ class ServiceController extends Controller
                 $thumbnail_service->service_id = $service['id'];
                 $thumbnail_service->thumbnail = $path;
                 $thumbnail_service->save();
+
             }
         }
 

@@ -12,7 +12,9 @@ use App\Models\Service;
 use App\Models\AdvantageUser;
 use App\Models\Tagline;
 use App\Models\AdvantageService;
+use App\Models\DetailUser;
 use App\Models\ThumbnailService;
+use App\Models\ExperienceUser;
 use App\Models\User;
 
 class LandingController extends Controller
@@ -24,9 +26,9 @@ class LandingController extends Controller
      */
     public function index()
     {
-        $service = Service::OrderBy('created_at', 'desc')->get();
+        $services = Service::OrderBy('created_at', 'desc')->get();
 
-        return view('pages.landing.index', compact('service'));
+        return view('pages.landing.index', compact('services'));
     }
 
     /**
@@ -106,15 +108,16 @@ class LandingController extends Controller
 
     public function detail($id)
     {
-        $services = Service::where('id', $id)->first();
+        $service = Service::where('id', $id)->first();
 
         $thumbnail = ThumbnailService::where('service_id', $id)->get();
         $advantage_user = AdvantageUser::where('service_id', $id)->get();
         $advantage_service = AdvantageService::where('service_id', $id)->get();
         $tagline = tagline::where('service_id', $id)->get();
+        $experience = ExperienceUser::where('detail_user_id', $id)->get();
 
         return view('pages.landing.detail', compact('service', 'thumbnail', 'advantage_user',
-        'advantage_service', 'tagline'));
+        'advantage_service', 'tagline', 'experience'));
     }
 
     public function booking($id)

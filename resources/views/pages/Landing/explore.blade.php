@@ -33,6 +33,11 @@
                     </a>
                 </nav>
                 <div class="grid grid-cols lg:grid-cols-3 md:grid-cols-2 gap-4">
+                    @forelse ($services as $item)
+
+                    @empty
+
+                    @endforelse
                     @include('components.landing.service-explore')
                 </div>
                 <div class="text-center mt-10">

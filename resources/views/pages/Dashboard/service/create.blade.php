@@ -93,7 +93,7 @@
                                                     <option value="4" class="">4 Days</option>
                                                     <option value="8" class="">8 Days</option>
                                                     <option value="16" class="">16 Days</option>
-                                                    <option value="30" class="">30 Days</option>
+                                                    <option value="32" class="">32 Days</option>
                                                 </select>
 
                                                 @if ($errors->has('delivery_time'))
@@ -245,7 +245,7 @@
         // add row
         $("#addThumbnailRow").click(function() {
             var html = '';
-            html += '<input placeholder="thumbnail 3" type="file" name="thumbnail[]" id="thumbnail" autocomplete="thumbnail" class="block w-full py-3 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" required>';
+            html += '<input placeholder="Thumbnail" type="file" name="thumbnail[]" id="thumbnail" autocomplete="thumbnail" class="block w-full py-3 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" required>';
 
             $('#newThumbnailRow').append(html);
         });

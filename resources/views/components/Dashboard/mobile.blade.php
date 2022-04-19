@@ -1,19 +1,25 @@
 <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 overflow-y-auto bg-white md:hidden" x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150" x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu" @keydown.escape="closeSideMenu" aria-label="aside">
     <div class="py-4 text-gray-500 dark:text-gray-400">
 
-        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            <img src="{{ asset('/assets/images/logo.svg') }}" alt="" class="ml-6">
+        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('index') }}">
+            <img href="{{route('index')}}" src="{{ asset('/assets/images/logo.svg') }}" alt="" class="ml-6">
         </a>
 
         <div class="flex items-center pt-5 pl-5 mt-10 space-x-2 border-t border-gray-100">
             <!--Author's profile photo-->
-            <img class="object-cover object-center mr-1 rounded-full w-14 h-14"
-                src="{{ url('https://randomuser.me/api/portraits/men/1.jpg') }}" alt="random user" />
+            @if (auth()->user()->detail_user()->first()->photo != NULL)
+                <img src="{{ url(Storage::url(auth()->user()->detail_user()->first()->photo)) }}" alt="photo profile"
+                    srcset="" class="w-16 h-16 rounded-full">
+            @else
+                <svg class="object-cover object-center mr-1 rounded-full w-14 h-14 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            @endif
             <div>
                 <!--Author name-->
                 <p class="font-semibold text-gray-900 text-md">{{ Auth::user()->name }}</p>
                 <p class="text-sm font-light text-serv-text">
-                    Website Developer
+                    {{ $user->detail_user->role ?? ' ' }}
                 </p>
             </div>
         </div>
@@ -70,7 +76,9 @@
                         <rect x="14" y="14" width="7" height="7" rx="2" fill="#082431" />
                     </svg> -->
                     <span class="ml-4">My Services</span>
-                    <span class="inline-flex items-center justify-center px-3 py-2 ml-auto text-xs font-bold leading-none text-green-500 rounded-full bg-serv-green-badge">2</span>
+                    <span class="inline-flex items-center justify-center px-3 py-2 ml-auto text-xs font-bold leading-none text-green-500 rounded-full bg-serv-green-badge">
+                        {{ auth()->user()->service()->count() }}
+                    </span>
 
                 </a>
             </li>
@@ -102,7 +110,9 @@
                         <rect x="17" y="11" width="2" height="10" rx="1" transform="rotate(90 17 11)" fill="white" />
                     </svg> -->
                     <span class="ml-4">My Request</span>
-                    <span class="inline-flex items-center justify-center px-3 py-2 ml-auto text-xs font-bold leading-none text-green-500 rounded-full bg-serv-green-badge">3</span>
+                    <span class="inline-flex items-center justify-center px-3 py-2 ml-auto text-xs font-bold leading-none text-green-500 rounded-full bg-serv-green-badge">
+                        {{ auth()->user()->order_buyer()->count()}}
+                    </span>
 
                 </a>
             </li>
@@ -137,7 +147,9 @@
                     </svg> -->
                     <span class="ml-4">My Orders</span>
                     <span class="inline-flex items-center justify-center px-3 py-2 ml-auto text-xs font-bold leading-none
-                    text-green-500 rounded-full bg-serv-green-badge">10</span>
+                    text-green-500 rounded-full bg-serv-green-badge">
+                        {{ auth()->user()->order_freelancer()->count()}}
+                    </span>
 
                 </a>
             </li>

@@ -200,7 +200,7 @@
         // add row
         $("#addAdvantagesRow").click(function() {
             var html = '';
-            html += '<input placeholder="keunggulan Kamu" type="text" name="advantage-user[]" id="advantage-user" autocomplete="advantage-user" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" required>';
+            html += '<input placeholder="keunggulan Kamu" type="text" name="advantage-user[]" id="advantage-user" autocomplete="advantage-user" class="block w-full py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" required>';
 
             $('#newAdvantagesRow').append(html);
         });

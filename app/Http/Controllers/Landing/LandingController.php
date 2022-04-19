@@ -125,6 +125,9 @@ class LandingController extends Controller
         $service = Service::where('id', $id)->first();
         $user_buyer = Auth::user()->id;
 
+        // dd($service);
+        // dd($user_buyer);
+        // dd($order);
         // verification booking
         if($service->users_id == $user_buyer){
             toast()->warning('Sorry, members cannot book their own service!');
@@ -135,11 +138,12 @@ class LandingController extends Controller
         $order->buyer_id = $user_buyer;
         $order->freelancer_id = $service->user->id;
         $order->service_id = $service->id;
+        $order->order_status_id = 4 ;
         $order->file = NULL;
         $order->note = NULL;
         $order->expired = Date('Y-m-d', strtotime('+3 Days'));
-        $order->order_status_id = 4;
         $order->save();
+
 
         $order_detail = Order::where('id', $order->id)->first();
 

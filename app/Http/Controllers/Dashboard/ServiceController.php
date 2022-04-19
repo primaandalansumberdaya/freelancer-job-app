@@ -212,9 +212,9 @@ class ServiceController extends Controller
 
         // update to thumbnail service
         if($request->hasfile('thumbnails')){
-            foreach($request->file('thumbnails') as $key => $file)
+            foreach ($request->file('thumbnails') as $key => $file)
             {
-                // get old thumbnails
+                // get old photo thumbnail
                 $get_photo = ThumbnailService::where('id', $key)->first();
 
                 // store photo
@@ -222,16 +222,16 @@ class ServiceController extends Controller
                     'assets/service/thumbnail', 'public'
                 );
 
-                // update thumbnail
+                // update thumbail
                 $thumbnail_service = ThumbnailService::find($key);
                 $thumbnail_service->thumbnail = $path;
                 $thumbnail_service->save();
 
                 // delete old photo thumbnail
-                $data = 'storage/' .$get_photo['photo'];
-                if (File::exists($data)) {
+                $data = 'storage/'.$get_photo['photo'];
+                if(File::exists($data)){
                     File::delete($data);
-                } else {
+                }else{
                     File::delete('storage/app/public/'.$get_photo['photo']);
                 }
             }
@@ -249,7 +249,6 @@ class ServiceController extends Controller
                 $thumbnail_service->service_id = $service['id'];
                 $thumbnail_service->thumbnail = $path;
                 $thumbnail_service->save();
-
             }
         }
 

@@ -39,7 +39,7 @@
                     <main class="col-span-12 p-4 md:pt-0">
                         <div class="px-2 py-2 mt-2 bg-white rounded-xl">
 
-                            <form action="{{ route('member.service.update', [$service->id]) }}" method="POST">
+                            <form action="{{ route('member.service.update', [$service->id]) }}" method="POST" enctype="multipart/form-data">
 
                                 @method('PUT')
                                 @csrf

@@ -102,6 +102,16 @@ class ProfileController extends Controller
         $get_photo = DetailUser::where('users_id', Auth::User()->id)->first();
 
         // delete old file from storage
+        if( isset($data_detail_user['photo']) ){
+            $data = 'storage/'.$get_photo['photo'];
+            if(File::exists($data)){
+                File::delete($data);
+            }else{
+                File::delete('storage/app/public/', $get_photo['photo']);
+            }
+        }
+
+        // store file to storage
         if(isset($data_detail_user['photo'])){
             $data_detail_user['photo'] = $request_detail_user->file('photo')->store(
                 'assets/photo', 'public'

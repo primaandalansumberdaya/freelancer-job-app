@@ -235,7 +235,7 @@ class ServiceController extends Controller
             }
         }
 
-
+        // add new photo thumbnail
         if($request->hasfile('thumbnail')){
             foreach($request->file('thumbnail') as $file)
             {

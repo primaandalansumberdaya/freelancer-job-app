@@ -6,16 +6,18 @@
 <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/dragscroll/0.0.8/dragscroll.min.js') }}"
     integrity="sha512-/ncZdOhQm5pgj5KHy720Ck7XF5RzYK6rtUsLNnGcitXrKT3wUYzTrPlOSG7SdL2kDzkuLEOFvrQRyllcZkeAlg=="
     crossorigin="anonymous"></script>
-<script src="{{ asset('/js/toggleModal.js')}}"></script>
+
+<script src="{{ asset('/js/toggleModal.js') }}"></script>
+
 <script>
     $(document).ready(function() {
-        $(".modal").on('click', ':not(.relative)', function (e) {
+        $(".modal").on('click', ':not(.relative)', function(e) {
             e.stopPropagation();
         });
-        $("#loginModal").on('click', function (e) {
+        $("#loginModal").on('click', function(e) {
             toggleModal('loginModal');
         });
-        $("#registerModal").on('click', function (e) {
+        $("#registerModal").on('click', function(e) {
             toggleModal('registerModal');
         });
     });

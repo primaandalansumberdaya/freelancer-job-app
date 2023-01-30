@@ -17,7 +17,7 @@
                     </svg>
                 </li>
                 <li class="flex items-center">
-                    <a href="#" class="font-medium">Website Developer</a>
+                    <a href="#" class="font-medium">{{ $service->title ?? '' }}</a>
                 </li>
             </ol>
         </nav>
